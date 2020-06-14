@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CoB Automation Prototype</title>
+	<script type="text/javascript" src="stuquery.js"></script>
+	<script type="text/javascript" src="stuquery.hexmap.js"></script>
+	<link rel="stylesheet" href="stuquery.hexmap.css">
+</head>
+<body>
+<script>
+	//Δx = 0 - 1 = -1
+	//Δy = 3 - 1 = 2
+	//Δd = 2 - (-1) = 3 (greater than |2| or |-1|)
+	//D = |3| = 3
+	var firstClick = 0
+	var maa = 0
+	var levies = 0
+	
+	function hexCalc(r1,q1,r2,q2){
+	/*if (r1 === r2){
+		var y = Math.abs(q2-q1)
+		return y;
+	} else if (q1 === q2){
+		var x = Math.abs(r2-r1)
+		return x;
+	} else {
+		dx = Math.abs(r2 - r1)
+		dy = Math.abs(q2 - q1)
+		if (q1 < q2){
+			dc = Math.ceil(dx/2)
+			d = dx+dy - dc
+			return d;
+		} else {
+			dc = Math.floor(dx/2)
+			d = dx+dy - dc
+			return d;
+		}
+	}*/
+		r1 = Math.abs(r1)
+		r2 = Math.abs(r2)
+		q1 = Math.abs(q1)
+		q2 = Math.abs(q2)
+		var x = q2-q1
+		var y = r2-r1
+		var d = x + y
+	
+		d = Math.abs(d)
+		y = Math.abs(y)
+		x = Math.abs(x)
+		//alert(q1 + " " + r1 + "\n" + q2 + " " + r2 + "\n" + "d " + d + " y " + y + " x " + x)
+		if (d >= y && d >= x){
+			return d;
+		} else if (y >= d && y >= x){
+			return y;
+		} else {
+			return x;
+		}
+	}
+		
+	function troopNumber(){
+		maa = prompt("How many MaA?", "0");
+		levies = prompt("How many levies?", "0");
+		speed = speedCalc(maa, levies)
+		return speed;
+	}
+		
+	function speedCalc(maa, levies){
+			maa = Number(maa);
+			levies = Number(levies);
+			if (maa <= 20 && levies === 0) {
+				return 60;
+			} else if (maa + levies <= 20) {
+				return 36;
+			} else if (maa <= 300 && levies === 0) {
+				return 36;
+			} else if (levies === 0) {
+				return 36;
+			} else {
+				return 24;
+			}
+			return 0;
+	}
+	
+S(document).ready(function(){
+	var hexmap = S.hexmap('hexmap-1');
+	hexmap.positionHexes().resize();
+	
+	hexmap.on('click',function(e){
+		tile = e.hex.id
+		if (tile === 'A'){
+			if (firstClick === 0){
+				q1 = 0
+				r1 = 0
+				firstClick = 1
+			} else {
+				q2 = 0
+				r2 = 0
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'B') {
+			if (firstClick === 0){
+				q1 = 0
+				r1 = 1
+				firstClick = 1
+			} else {
+				q2 = 0
+				r2 = 1
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+				
+			}
+		} else if (tile === 'C') {
+			if (firstClick === 0){
+				q1 = 0
+				r1 = 2
+				firstClick = 1
+			} else {
+				q2 = 0
+				r2 = 2
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'D') {
+			if (firstClick === 0){
+				q1 = 1
+				r1 = 0
+				firstClick = 1
+			} else {
+				q2 = 1
+				r2 = 0
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'E') {
+			if (firstClick === 0){
+				q1 = 1
+				r1 = 1
+				firstClick = 1
+			} else {
+				q2 = 1
+				r2 = 1
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'F') {
+			if (firstClick === 0){
+				q1 = 1
+				r1 = 2
+				firstClick = 1
+			} else {
+				q2 = 1
+				r2 = 2
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'G') {
+			if (firstClick === 0){
+				q1 = 2
+				r1 = 0
+				firstClick = 1
+			} else {
+				q2 = 2
+				r2 = 0
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'H') {
+			if (firstClick === 0){
+				q1 = 2
+				r1 = 1
+				firstClick = 1
+			} else {
+				q2 = 2
+				r2 = 1
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'I') {
+			if (firstClick === 0){
+				q1 = 2
+				r1 = 2
+				firstClick = 1
+			} else {
+				q2 = 2
+				r2 = 2
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'J') {
+			if (firstClick === 0){
+				q1 = 3
+				r1 = 0
+				firstClick = 1
+			} else {
+				q2 = 3
+				r2 = 0
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'K') {
+			if (firstClick === 0){
+				q1 = 3
+				r1 = 1
+				firstClick = 1
+			} else {
+				q2 = 3
+				r2 = 1
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'L') {
+			if (firstClick === 0){
+				q1 = 3
+				r1 = 2
+				firstClick = 1
+			} else {
+				q2 = 3
+				r2 = 2
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'M') {
+			if (firstClick === 0){
+				q1 = 4
+				r1 = 0
+				firstClick = 1
+			} else {
+				q2 = 4
+				r2 = 0
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'N') {
+			if (firstClick === 0){
+				q1 = 4
+				r1 = 1
+				firstClick = 1
+			} else {
+				q2 = 4
+				r2 = 1
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		} else if (tile === 'O') {
+			if (firstClick === 0){
+				q1 = 4
+				r1 = 2
+				firstClick = 1
+			} else {
+				q2 = 4
+				r2 = 2
+				d = hexCalc(r1,q1,r2,q2)
+				d = d*2
+				//alert(d);
+				speed = troopNumber()
+				timeTaken = (d/speed) *24
+				alert(maa + " MaA and " + levies + " levies travelling " + d + " tile cost at a speed of " + speed + "\nThis will take " + timeTaken + " hours");
+				firstClick = 0
+			}
+		}
+	});
+});
+
+	
+</script>
+<div id="hexmap-1">
+	<code>
+{
+	"layout":"odd-q",
+	"hexes": {
+		"A":{"n":"Hex a","q":0,"r":0},
+		"B":{"n":"Hex b","q":0,"r":1},
+		"C":{"n":"Hex c","q":0,"r":2},
+		"D":{"n":"Hex d","q":1,"r":0},
+		"E":{"n":"Hex e","q":1,"r":1},
+		"F":{"n":"Hex f","q":1,"r":2},
+		"G":{"n":"Hex g","q":2,"r":0},
+		"H":{"n":"Hex h","q":2,"r":1},
+		"I":{"n":"Hex i","q":2,"r":2},
+		"J":{"n":"Hex j","q":3,"r":0},
+		"K":{"n":"Hex k","q":3,"r":1},
+		"L":{"n":"Hex l","q":3,"r":2},
+		"M":{"n":"Hex m","q":4,"r":0},
+		"N":{"n":"Hex n","q":4,"r":1},
+		"O":{"n":"Hex o","q":4,"r":2}
+	}
+}
+	</code>
+</div>
+</body>
+<footer>
+</footer>
